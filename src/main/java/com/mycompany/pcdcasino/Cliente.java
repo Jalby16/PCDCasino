@@ -12,42 +12,35 @@ public class Cliente {
         try {
             // Establecer conexión con el servidor
             //ipjavidlm 192.168.1.135
-            Socket socket = new Socket("172.19.73.119", 44444);
+            Socket socket = new Socket("192.168.43.187", 44444);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Scanner scanner = new Scanner(System.in);
-
+            System.out.println("Introduzca su nombre: ");
+            String nombre = scanner.nextLine();
+            System.out.println("Introduzca su edad: ");
+            int edad = Integer.parseInt(scanner.nextLine());
+            System.out.println("Introduzca el saldo que desee depositar: ");
+            int saldo = Integer.parseInt(scanner.nextLine());
+            // Crear el objeto Persona
+            Persona p = new Persona(edad, nombre, saldo);
+            // Serializar y enviar el objeto Persona al servidor
+            oos.writeObject(p);
             // Bucle para permitir al usuario realizar múltiples operaciones
             boolean continuar = true;
             while (continuar) {
-                System.out.println("Introduzca su nombre: ");
-                String nombre = scanner.nextLine();
-                System.out.println("Introduzca su edad: ");
-                int edad = Integer.parseInt(scanner.nextLine());
-                System.out.println("Introduzca el saldo que desee depositar: ");
-                int saldo = Integer.parseInt(scanner.nextLine());
-
-                // Crear el objeto Persona
-                Persona p = new Persona(edad, nombre, saldo);
-
-                // Serializar y enviar el objeto Persona al servidor
-                oos.writeObject(p);
-
                 // Leer y mostrar la persona modificada recibida desde el servidor
                 System.out.println("Esperando la modificación del objeto...");
-                String mensaje = (String) ois.readObject();
-                if (mensaje.equals("CONSULTAR_SALDO")){
-                   Persona p_modificada = (Persona) ois.readObject();
-                   System.out.println("Persona recibida desde el servidor: " + p_modificada);
-                }
+                Persona p_modificada = (Persona) ois.readObject();
+                System.out.println("Persona recibida desde el servidor: " + p_modificada);
                 
-                
-
                 // Preguntar al usuario si desea realizar otra operación
                 System.out.println("¿Desea realizar otra operación? (si/no)");
                 String respuesta = scanner.nextLine();
                 if (!respuesta.equalsIgnoreCase("si")) {
                     continuar = false; // Si la respuesta no es 'si', salir del bucle
+                }else{
+                    oos.writeObject(p_modificada);
                 }
             }
 

@@ -29,9 +29,6 @@ public class HiloCliente implements Runnable{
             ObjectOutputStream oos = new ObjectOutputStream(cliente.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(cliente.getInputStream());
 
-            Persona p = (Persona) ois.readObject();
-            System.out.println("Persona leida." + p.toString());
-            
             int seleccion = 0;
             
             while (seleccion != 4) {
@@ -47,22 +44,24 @@ public class HiloCliente implements Runnable{
                 System.out.println("*                                               *");
                 System.out.println("*************************************************");
                 System.out.println("Seleccione una opción: ");
-                
+                Persona p = (Persona) ois.readObject();
                 Scanner scanner = new Scanner(System.in);
                 seleccion = scanner.nextInt();
                 switch (seleccion) {
                     case 1:
                         System.out.println("Juego seleccionado: Ruleta de la Fortuna");
                         jugarRuleta(p);
-                        consultarSaldo(p, oos);
+                        consultarSaldo(p);
+                        oos.writeObject(p);
                         break;
                     case 2:
                         System.out.println("Juego seleccionado: Tragaperras Western");
-                        jugarTragaperras(p, oos);
-                        consultarSaldo(p, oos);
+                        jugarTragaperras(p);
+                        consultarSaldo(p);
+                        oos.writeObject(p);
                         break;
                     case 3:
-                        consultarSaldo(p, oos);
+                        consultarSaldo(p);
                         break;
                     case 4:
                         System.out.println("Saliendo del casino...");
@@ -188,7 +187,7 @@ public class HiloCliente implements Runnable{
         }
     }
 
-    private static void jugarTragaperras(Persona p, ObjectOutputStream oos) {
+    private static void jugarTragaperras(Persona p) {
         // Símbolos de las frutas
         String[] frutas = {"🍋", "🍏", "🍐", "🥝", "🍌"};
 
@@ -202,17 +201,10 @@ public class HiloCliente implements Runnable{
         int nuevoSaldo = p.getSaldo() - 5; // Supongamos que jugar cuesta 5 unidades
         p.setSaldo(nuevoSaldo);
 
-        try {
-            // Enviar el resultado al cliente
-            oos.writeObject(resultado);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     
 
-    private static void consultarSaldo(Persona p, ObjectOutputStream oos) throws IOException {
-        oos.writeObject("CONSULTAR_SALDO");
-        oos.writeObject(p);
+    private static void consultarSaldo(Persona p) throws IOException {
+        System.out.println(p.toString());
     }
 }
