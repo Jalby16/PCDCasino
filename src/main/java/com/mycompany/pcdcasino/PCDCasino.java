@@ -34,7 +34,9 @@ public class PCDCasino {
                 System.out.println("*                                            *");
                 System.out.println("**********************************************");
                 System.out.println("Seleccione una opción: ");
-                seleccion = (int) ois.readObject();
+                
+                Scanner scanner = new Scanner(System.in);
+                seleccion = scanner.nextInt();
                 switch (seleccion) {
                     case 1:
                         System.out.println("Juego seleccionado: Ruleta de la Fortuna");
@@ -94,6 +96,7 @@ public class PCDCasino {
         
         String color = null;
         String docena = null;
+        
         for (int i = 0; i < rojos.length; i++) {
             if (rojos[i] == resultado) {
                 color = "Rojo";
@@ -123,7 +126,7 @@ public class PCDCasino {
         if(numeroPintao == resultado){
             nuevoSaldo = p.getSaldo() + apuesta*36;
         }
-        if (color == "Rojo" && )
+        //if (color == "Rojo" && )
         
         p.setSaldo(nuevoSaldo);
         System.out.println("Saldo actual después de jugar: " + p.getSaldo());
