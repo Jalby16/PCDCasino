@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Cliente {
 
@@ -51,6 +53,10 @@ public class Cliente {
             e.printStackTrace(System.err);
             System.exit(1);
         } catch (ClassNotFoundException e) {
+            System.err.println("ClassNotFoundException. Mensaje: " + e.getMessage());
+            e.printStackTrace(System.err);
+            System.exit(1);
+        } catch (EdadException e) {
             System.err.println("ClassNotFoundException. Mensaje: " + e.getMessage());
             e.printStackTrace(System.err);
             System.exit(1);

@@ -7,7 +7,10 @@ public class Persona implements Serializable {
     private String nombre;
     private int saldo;
 
-    public Persona(int edad, String nombre, int saldo) {
+    public Persona(int edad, String nombre, int saldo) throws EdadException {
+        if (edad < 18) {
+            throw new EdadException("La edad no puede ser menor que 18");
+        }
         this.edad = edad;
         this.nombre = nombre;
         this.saldo = saldo;

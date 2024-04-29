@@ -62,6 +62,7 @@ public class HiloCliente implements Runnable{
                         break;
                     case 3:
                         consultarSaldo(p);
+                        oos.writeObject(p);
                         break;
                     case 4:
                         System.out.println("Saliendo del casino...");
@@ -189,22 +190,50 @@ public class HiloCliente implements Runnable{
 
     private static void jugarTragaperras(Persona p) {
         // Símbolos de las frutas
-        String[] frutas = {"🍋", "🍏", "🍐", "🥝", "🍌"};
-
+        String[] frutas = {";(", ";)", ":0", ":D", ":/"};
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduce la cantidad de fichas que quiere apostar en la tragaperras (si no quiere apostar a un numero ingrese 0)");
+        int apuesta = scanner.nextInt();
+        // Actualizar el saldo del jugador después de jugar
+        int nuevoSaldo = p.getSaldo() - apuesta;
         // Simular una tirada de tragaperras
         Random random = new Random();
         String resultado = frutas[random.nextInt(frutas.length)] + " | "
                         + frutas[random.nextInt(frutas.length)] + " | "
                         + frutas[random.nextInt(frutas.length)];
+        System.out.println(resultado);
+        int ganancias = 0;
+        if(resultado.charAt(0)+resultado.charAt(1)==resultado.charAt(3)+resultado.charAt(4) && resultado.charAt(3)+resultado.charAt(4)==resultado.charAt(6)+resultado.charAt(7)){
+            if (";(".equals(resultado.charAt(0))){
+                ganancias+=apuesta*10;
+            }else if (";)".equals(resultado.charAt(0))){
+                ganancias+=apuesta*5;
+            }else if (":0".equals(resultado.charAt(0))){
+                ganancias+=apuesta*4;
+            }else if (":D".equals(resultado.charAt(0))){
+                ganancias+=apuesta*3;
+            }else{
+                ganancias+=apuesta*2;
+            }
+        }
+        if(ganancias!=0){
+            System.out.println("ENHORABUENA HAS GANADO " + ganancias + " FICHAS!!");
+            nuevoSaldo = p.getSaldo() + ganancias;
+            p.setSaldo(nuevoSaldo);
+        }
+        System.out.println("Saldo actual después de jugar: " + p.getSaldo());
+        if (nuevoSaldo == 0) {
+            System.out.println("¡No tienes suficiente saldo para jugar!");
+            return;
+        }
 
-        // Actualizar el saldo del jugador después de jugar
-        int nuevoSaldo = p.getSaldo() - 5; // Supongamos que jugar cuesta 5 unidades
+         // Supongamos que jugar cuesta 5 unidades
         p.setSaldo(nuevoSaldo);
 
     }
     
 
     private static void consultarSaldo(Persona p) throws IOException {
-        System.out.println(p.toString());
+        System.out.println("Tiene un saldo de "+p.getSaldo()+"$");
     }
 }
