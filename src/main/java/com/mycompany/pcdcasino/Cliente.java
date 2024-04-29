@@ -12,7 +12,7 @@ public class Cliente {
         try {
             // Establecer conexión con el servidor
             //ipjavidlm 192.168.1.135
-            Socket socket = new Socket("192.168.1.135", 44444);
+            Socket socket = new Socket("172.19.73.119", 44444);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Scanner scanner = new Scanner(System.in);
