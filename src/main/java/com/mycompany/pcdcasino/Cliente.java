@@ -11,7 +11,8 @@ public class Cliente {
     public static void main(String[] args) {
         try {
             // Establecer conexión con el servidor
-            Socket socket = new Socket("127.0.0.1", 60270);
+            //ipjavidlm 192.168.1.135
+            Socket socket = new Socket("192.168.1.135", 44444);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Scanner scanner = new Scanner(System.in);
@@ -34,8 +35,13 @@ public class Cliente {
 
                 // Leer y mostrar la persona modificada recibida desde el servidor
                 System.out.println("Esperando la modificación del objeto...");
-                Persona p_modificada = (Persona) ois.readObject();
-                System.out.println("Persona recibida desde el servidor: " + p_modificada);
+                String mensaje = (String) ois.readObject();
+                if (mensaje.equals("CONSULTAR_SALDO")){
+                   Persona p_modificada = (Persona) ois.readObject();
+                   System.out.println("Persona recibida desde el servidor: " + p_modificada);
+                }
+                
+                
 
                 // Preguntar al usuario si desea realizar otra operación
                 System.out.println("¿Desea realizar otra operación? (si/no)");
