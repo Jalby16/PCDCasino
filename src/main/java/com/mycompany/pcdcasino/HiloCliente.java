@@ -31,7 +31,7 @@ public class HiloCliente implements Runnable{
 
             int seleccion = 0;
             
-            while (seleccion != 4) {
+            while (seleccion != 5) {
                 System.out.println("*************************************************");
                 System.out.println("*               ¡¡ Bienvenido al Casino !!      *");
                 System.out.println("*-----------------------------------------------*");
@@ -40,7 +40,8 @@ public class HiloCliente implements Runnable{
                 System.out.println("*            1. Ruleta de la Fortuna            *");
                 System.out.println("*            2. Tragaperras Western             *");
                 System.out.println("*            3. Consultar saldo                 *");
-                System.out.println("*            4. Salir                           *");
+                System.out.println("*            4. Cartas del Tarot                *");
+                System.out.println("*            5. Salir                           *");
                 System.out.println("*                                               *");
                 System.out.println("*************************************************");
                 System.out.println("Seleccione una opción: ");
@@ -65,6 +66,11 @@ public class HiloCliente implements Runnable{
                         oos.writeObject(p);
                         break;
                     case 4:
+                        cartasTarot(p);
+                        consultarSaldo(p);
+                        oos.writeObject(p);
+                        break;
+                    case 5:
                         System.out.println("Saliendo del casino...");
                         break;
                     default:
@@ -230,6 +236,19 @@ public class HiloCliente implements Runnable{
          // Supongamos que jugar cuesta 5 unidades
         p.setSaldo(nuevoSaldo);
 
+    }
+    
+    private static void cartasTarot(Persona p){
+        String[] frasesTarot = {"... el próximo verano harás un viaje a un lugar muy lejano.", "... aprobarás a todos tus alumnos.","... ganarás mucho dinero mañana."};
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("El coste de cada tirada de cartas es de 10 euros.");
+        System.out.println("¿Cual es tu signo del zodiaco?");
+        String signo = scanner.nextLine();
+        System.out.println("Siendo " + signo + ", las cartas dicen que" + frasesTarot[random.nextInt(frasesTarot.length)]);
+        
+        int nuevoSaldo = p.getSaldo() - 10; // Supongamos que jugar cuesta 10 unidades
+        p.setSaldo(nuevoSaldo);
     }
     
 
