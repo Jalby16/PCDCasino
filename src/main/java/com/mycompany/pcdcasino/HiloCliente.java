@@ -240,10 +240,11 @@ public class HiloCliente implements Runnable{
     
     private static void cartasTarot(Persona p){
         String[] frasesTarot = {"... el próximo verano harás un viaje a un lugar muy lejano.", "... aprobarás a todos tus alumnos.","... ganarás mucho dinero mañana."};
+        String[] preguntasTarot = {"¿Cual es tu deporte favorito?","¿Cual es tu ciudad favorita?","¿Cual es tu profesion?","¿Cual es tu signo del zodiaco?"};
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
         System.out.println("El coste de cada tirada de cartas es de 10 euros.");
-        System.out.println("¿Cual es tu signo del zodiaco?");
+        System.out.println(preguntasTarot[random.nextInt(preguntasTarot.length)]);
         String signo = scanner.nextLine();
         System.out.println("Siendo " + signo + ", las cartas dicen que" + frasesTarot[random.nextInt(frasesTarot.length)]);
         
