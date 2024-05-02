@@ -94,17 +94,33 @@ public class HiloCliente implements Runnable {
         System.out.println("Introduce la cantidad de fichas que quiere apostar a ese numero (si no quiere apostar a un numero ingrese 0)");
         int apuestaNumero = scanner.nextInt();
         System.out.println("Introduce el numero al que quiere apostar: ");
-        int numeroElegido = scanner.nextInt();
+        int numeroElegido;
+        if (apuestaNumero != 0) {
+            System.out.println("Introduce el numero al que quiere apostar: ");
+            numeroElegido = scanner.nextInt();
+        } else {
+            numeroElegido = -1;
+        }
 
         System.out.println("Introduce la cantidad de fichas que quiere apostar a ese color (si no quiere apostar a un numero ingrese 0)");
         int apuestaColor = scanner.nextInt();
-        System.out.println("Introduce el color al que quieres apostar:\n1.Rojo\n2.Negro ");
-        int color = scanner.nextInt();
+        int color;
+        if (apuestaColor != 0) {
+            System.out.println("Introduce el color al que quieres apostar:\n1.Rojo\n2.Negro ");
+            color = scanner.nextInt();
+        } else {
+            color = 0;
+        }
 
         System.out.println("Introduce la cantidad de fichas que quiere apostar a esa docena (si no quiere apostar a un numero ingrese 0)");
         int apuestaDocena = scanner.nextInt();
-        System.out.println("Introduce la docena a la que quieres apostar:\n1.Primera docena\n2.Segunda docena\n3.Tercera docena ");
-        int docena = scanner.nextInt();
+        int docena;
+        if (apuestaDocena != 0) {
+            System.out.println("Introduce la docena a la que quieres apostar:\n1.Primera docena\n2.Segunda docena\n3.Tercera docena ");
+            docena = scanner.nextInt();
+        } else {
+            docena = 0;
+        }
 
         int nuevoSaldo = p.getSaldo() - (apuestaNumero + apuestaColor + apuestaDocena); // Supongamos que jugar cuesta 10 unidades
         p.setSaldo(nuevoSaldo);
