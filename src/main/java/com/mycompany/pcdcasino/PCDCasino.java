@@ -17,7 +17,7 @@ public class PCDCasino {
             
             ServerSocket serverSocket = new ServerSocket(44444);
             System.out.println("Esperando a un cliente");
-
+            
             while (true) {
                 Socket cliente = serverSocket.accept();
                 Thread hiloCliente = new Thread(new HiloCliente(cliente));

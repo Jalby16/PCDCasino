@@ -44,8 +44,9 @@ public class HiloCliente implements Runnable {
                 System.out.println("*            5. Salir                           *");
                 System.out.println("*                                               *");
                 System.out.println("*************************************************");
-                System.out.println("Seleccione una opción: ");
+                
                 Persona p = (Persona) ois.readObject();
+                System.out.println("Seleccione una opción: "+ p.getNombre() );
                 Scanner scanner = new Scanner(System.in);
                 seleccion = scanner.nextInt();
                 switch (seleccion) {
@@ -232,7 +233,7 @@ public class HiloCliente implements Runnable {
     }
 
     private static void cartasTarot(Persona p) {
-        String[] frasesTarot = {"... el próximo verano harás un viaje a un lugar muy lejano.", "... aprobarás a todos tus alumnos.", "... ganarás mucho dinero mañana."};
+        String[] frasesTarot = {"... el próximo verano harás un viaje a un lugar muy lejano.", "... tendrás una sorpresa la semana que viene.", "... ganarás mucho dinero mañana."};
         String[] preguntasTarot = {"¿Cual es tu deporte favorito?", "¿Cual es tu ciudad favorita?", "¿Cual es tu profesion?", "¿Cual es tu signo del zodiaco?"};
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
